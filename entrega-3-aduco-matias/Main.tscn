@@ -1,0 +1,115 @@
+[gd_scene load_steps=11 format=3 uid="uid://bgs2vvr5aw8ft"]
+
+[ext_resource type="PackedScene" uid="uid://o7knxftiwahe" path="res://entities/player/Player.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://cwss7yl8udbui" path="res://assets/textures/background.png" id="2"]
+[ext_resource type="Script" uid="uid://bkmvt4ya2xfm8" path="res://Main.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://bscjwoaotlcqc" path="res://entities/enemies/Turret.tscn" id="4"]
+[ext_resource type="Script" uid="uid://ertnqm8kd3lw" path="res://entities/enemies/TurretsSpawner.gd" id="5"]
+[ext_resource type="PackedScene" uid="uid://iaoih4nyyvv8" path="res://world/Floor.tscn" id="6_3dxm6"]
+[ext_resource type="Texture2D" uid="uid://j14wrxanwhni" path="res://assets/textures/player.png" id="7_lgr22"]
+[ext_resource type="Texture2D" uid="uid://c1umtbyikidk0" path="res://assets/textures/turret.png" id="8_trn2v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trn2v"]
+size = Vector2(30.5, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03owx"]
+size = Vector2(52, 317.5)
+
+[node name="Main" type="Node"]
+script = ExtResource("3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2")
+expand_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector2(91, 394)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="TurretsSpawner" type="Node" parent="."]
+script = ExtResource("5")
+turret_scene = ExtResource("4")
+
+[node name="Floor" parent="." instance=ExtResource("6_3dxm6")]
+position = Vector2(399, 513)
+
+[node name="Floor2" parent="." instance=ExtResource("6_3dxm6")]
+position = Vector2(1199, 513)
+
+[node name="Floor3" parent="." instance=ExtResource("6_3dxm6")]
+position = Vector2(1999, 513)
+
+[node name="Cube" type="RigidBody2D" parent="."]
+position = Vector2(442, 414)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Cube"]
+scale = Vector2(0.476562, 0.453125)
+texture = ExtResource("7_lgr22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube"]
+shape = SubResource("RectangleShape2D_trn2v")
+
+[node name="Cube2" type="RigidBody2D" parent="."]
+position = Vector2(442, 385)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Cube2"]
+scale = Vector2(0.476562, 0.453125)
+texture = ExtResource("7_lgr22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube2"]
+shape = SubResource("RectangleShape2D_trn2v")
+
+[node name="Cube3" type="RigidBody2D" parent="."]
+position = Vector2(442, 356)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Cube3"]
+scale = Vector2(0.476562, 0.453125)
+texture = ExtResource("7_lgr22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube3"]
+shape = SubResource("RectangleShape2D_trn2v")
+
+[node name="Cube4" type="RigidBody2D" parent="."]
+position = Vector2(442, 327)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Cube4"]
+scale = Vector2(0.476562, 0.453125)
+texture = ExtResource("7_lgr22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cube4"]
+shape = SubResource("RectangleShape2D_trn2v")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(25, 268)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+scale = Vector2(1.59091, 4.88077)
+texture = ExtResource("8_trn2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_03owx")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(2373, 267)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2"]
+scale = Vector2(1.59091, 4.88077)
+texture = ExtResource("8_trn2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_03owx")

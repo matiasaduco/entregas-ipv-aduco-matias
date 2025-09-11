@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bscjwoaotlcqc"]
+
+[ext_resource type="Texture2D" uid="uid://c1umtbyikidk0" path="res://assets/textures/turret.png" id="1"]
+[ext_resource type="Script" uid="uid://b2s442tfjn5or" path="res://entities/enemies/Turret.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://c5u5emamhc2bf" path="res://entities/enemies/TurretProjectile.tscn" id="3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x15t2"]
+radius = 614.638
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x15t2"]
+size = Vector2(39, 69)
+
+[node name="Turret" type="Sprite2D"]
+texture = ExtResource("1")
+script = ExtResource("2")
+projectile_scene = ExtResource("3")
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="FirePosition" type="Marker2D" parent="."]
+position = Vector2(0, -28)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_x15t2")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 586)
+collision_mask = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_x15t2")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
